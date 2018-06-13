@@ -1,4 +1,6 @@
-const _ = require('lodash');
+'use strict';
+
+global._ = require('lodash');
 const http = require('http');
 
 // create a server object

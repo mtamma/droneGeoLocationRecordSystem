@@ -11,12 +11,13 @@ if (!_.isEmpty(userName) && !_.isEmpty(userPassword)) {
 }
 const connectionString = `mongodb://${userNameAndPassword}localhost:27017/${dbName}`;
 mongoose.connect(connectionString);
+const db = mongoose.connection;
 
-const.on('error', function (err) {
+db.on('error', function (err) {
     console.log('connection to db error: ', err);
 });
 
-dbName.once('open', function () {
+db.once('open', function () {
     console.log('mongo db connected');
 });
 

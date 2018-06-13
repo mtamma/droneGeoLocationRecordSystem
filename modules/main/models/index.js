@@ -1,4 +1,3 @@
-'use strict';
 const mongoose = require('mongoose');
 const appConfig = require('../config/appConfig.json');
 

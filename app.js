@@ -1,11 +1,12 @@
-'use strict';
-
 global._ = require('lodash');
 const http = require('http');
 
+const createServerFn = function () {
+    require('./modules/main/models');
+};
 // create a server object
-const server = http.createServer()
-.listen(3030, function () {
+const server = http.createServer(createServerFn);
+server.listen(3030, function () {
     console.log('Server start at port 3030');
 });
 

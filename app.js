@@ -1,7 +1,7 @@
 global._ = require('lodash');
 const http = require('http');
 
-const createServerFn = function () {
+const createServerFn = new function () {
     require('./modules/main/models');
 };
 // create a server object

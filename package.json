@@ -1,0 +1,26 @@
+{
+  "name": "drone-geo-location-record-system",
+  "version": "0.1.0",
+  "description": "This is Api service for recording geo location of devices",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mtamma/droneGeoLocationRecordSystem.git"
+  },
+  "keywords": [
+    "drone",
+    "geo-location"
+  ],
+  "author": "Mardi Vester Tamma <mardi_tamma@yahoo.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mtamma/droneGeoLocationRecordSystem/issues"
+  },
+  "homepage": "https://github.com/mtamma/droneGeoLocationRecordSystem#readme",
+  "dependencies": {
+    "lodash": "^4.17.10"
+  }
+}

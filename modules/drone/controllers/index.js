@@ -1,14 +1,12 @@
 'use strict';
-const getDroneLocation = require('./get.drone.location');
-const putDroneLocation = require('./put.drone.location');
+const getDroneLocation = require('./get.drone.location').invoke;
+const putDroneLocation = require('./put.drone.location').invoke;
 
 module.exports = function () {
-    this.getDroneLocation = function () {
-        const instance = new getDroneLocation();
-        instance();
+    this.getDroneLocation = function (data) {
+        getDroneLocation(data);
     };
-    this.putDroneLocation = function () {
-        const instance = new putDroneLocation();
-        instance();
+    this.putDroneLocation = function (data) {
+        putDroneLocation(data)
     };
 };

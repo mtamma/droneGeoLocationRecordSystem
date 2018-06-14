@@ -9,7 +9,12 @@ const server = http.createServer();
 const requestFn = function (req, res) {
     const method = req.method;
     const url = req.url;
-    routes.init(method, url);
+    const data = {
+        'method': method,
+        'url': url,
+        'emitterInstance': emitterInstance
+    };
+    routes.init(data);
 };
 const initFn = function (err) {
     if (err) {
@@ -21,5 +26,5 @@ const initFn = function (err) {
     server.on('request', requestFn);
 };
 
-eventEmitters.init();
+const emitterInstance = eventEmitters.init();
 models.init(initFn);

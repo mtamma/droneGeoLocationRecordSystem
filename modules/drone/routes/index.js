@@ -1,7 +1,5 @@
 'use strcit';
-const droneEventEmitter = require('../event-emitters');
 const eventList = require('../config/eventList.json');
-const EventEmitter = require('events');
 
 module.exports = function () {
     // drone endpoint
@@ -20,8 +18,10 @@ module.exports = function () {
         ],
     };
 
-    this.load = function (method, url) {
-        console.log('load drone routes');
+    this.load = function (param) {
+        const method = param.method;
+        const url = param.url;
+        const emitterInstance = param.emitterInstance;
         const listEndpoint = this.listEndpoint;
         if (_.has(listEndpoint, method)) {
             const methodEnpoint = listEndpoint[method];
@@ -31,8 +31,8 @@ module.exports = function () {
 
             if (matchEndpoint) {
                 const emitMessage = matchEndpoint.emitMessage;
-                const droneEmitter = new EventEmitter();
-                droneEmitter.emit(emitMessage);
+                emitterInstance.emit(emitMessage);
+                console.log('emit: ', emitMessage);
             }
         }
     };

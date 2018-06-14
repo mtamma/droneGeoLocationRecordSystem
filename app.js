@@ -22,8 +22,8 @@ const initFn = function (err) {
     server.on('request', requestFn);
 };
 
-const emitterInstance = eventEmitters.init();
-models.init(initFn);
+const mongooseInstance = models.init();
+const emitterInstance = eventEmitters.init(mongooseInstance, initFn);
 
 const collectRequestData = function (request, callback) {
     const FORM_URLENCODED = 'application/x-www-form-urlencoded';

@@ -1,6 +1,6 @@
 'use strict';
-const mongoose = require('mongoose');
 
-module.exports.invoke = function (param) {
+module.exports.invoke = function (data, mongooseInstance) {
+    const mongoose = mongooseInstance;
     console.log('trigger put drone location');
 };

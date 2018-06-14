@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
 const appConfig = require('../config/appConfig.json');
+const device = require('./device');
+const location = require('./location');
 
-module.exports.init = function (callbackFn) {
+module.exports.init = function () {
     const dbName = _.get(appConfig, 'DATABASE.DB_NAME', 'geo-location-record-system');
     const userName = _.get(appConfig, 'DATABASE.DB_USER', '');
     const userPassword = _.get(appConfig, 'DATABASE.DB_USER_PASSWD', '');
@@ -15,7 +17,7 @@ module.exports.init = function (callbackFn) {
 
     db.on('error', function (err) {
         console.log('connection to db error: ', err);
-        return callbackFn(err);
+        return;
     });
 
     db.once('open', function () {
@@ -23,7 +25,7 @@ module.exports.init = function (callbackFn) {
     });
 
     // Bring on the schema
-    require('./device');
-    require('./location');
-    callbackFn();
+    device.init(mongoose);
+    location.init(mongoose);
+    return mongoose;
 };

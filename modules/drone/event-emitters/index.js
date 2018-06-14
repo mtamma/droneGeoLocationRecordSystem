@@ -3,18 +3,22 @@ const eventList = require('../config/eventList.json');
 const controller = require('../controllers');
 
 module.exports = function () {
+    const instance = {};
     this.triggerUpdateLocation = function (data) {
         const ctrl = new controller();
-        ctrl.putDroneLocation(data);
+        const mongooseInstance = instance.mongooseInstance;
+        ctrl.putDroneLocation(data, mongooseInstance);
     };
     this.triggerGetLocation = function (data) {
         const ctrl = new controller();
-        ctrl.getDroneLocation(data);
+        const mongooseInstance = instance.mongooseInstance;
+        ctrl.getDroneLocation(data, mongooseInstance);
     };
-    this.load = function (instanceEmitter) {
-        instanceEmitter.on(eventList.updateLocation, this.triggerUpdateLocation);
+    this.load = function (emitterInstance, mongooseInstance) {
+        instance.mongooseInstance = mongooseInstance;
+        emitterInstance.on(eventList.updateLocation, this.triggerUpdateLocation);
         console.log('on: ', eventList.updateLocation);
-        instanceEmitter.on(eventList.getLocation, this.triggerGetLocation);
+        emitterInstance.on(eventList.getLocation, this.triggerGetLocation);
         console.log('on: ', eventList.getLocation);
     };
 };

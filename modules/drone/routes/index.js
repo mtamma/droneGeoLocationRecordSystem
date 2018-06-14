@@ -39,9 +39,12 @@ module.exports = function () {
                 res.end();
                 return
             }
+            res.writeHead(404, {'Content-Type': 'text/plain'})
+            res.write('request not found');
             res.end();
-            return;
         }
+        res.writeHead(404, {'Content-Type': 'text/plain'})
+        res.write('request not found');
         res.end();
     };
 };

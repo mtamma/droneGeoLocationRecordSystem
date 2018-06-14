@@ -18,10 +18,9 @@ module.exports = function () {
         ],
     };
 
-    this.load = function (param) {
-        const method = param.method;
-        const url = param.url;
-        const emitterInstance = param.emitterInstance;
+    this.load = function (req, res, emitterInstance, data) {
+        const method = req.method;
+        const url = req.url;
         const listEndpoint = this.listEndpoint;
         if (_.has(listEndpoint, method)) {
             const methodEnpoint = listEndpoint[method];
@@ -31,9 +30,18 @@ module.exports = function () {
 
             if (matchEndpoint) {
                 const emitMessage = matchEndpoint.emitMessage;
-                emitterInstance.emit(emitMessage);
+                emitterInstance.emit(emitMessage, data);
                 console.log('emit: ', emitMessage);
+                console.log('data: ', data);
+
+                res.writeHead(200, {'Content-Type': 'text/plain'})
+                res.write('request received successfully');
+                res.end();
+                return
             }
+            res.end();
+            return;
         }
+        res.end();
     };
 };

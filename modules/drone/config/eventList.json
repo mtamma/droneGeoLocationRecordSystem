@@ -1,0 +1,4 @@
+{
+    "updateLocation": "put.drone.location",
+    "getLocation": "get.drone.location"
+}

@@ -1,4 +1,6 @@
-const drone = require('../../drone/routes');
+const droneRoutes = require('../../drone/routes');
 
-module.exports = function () {
+module.exports.init = function () {
+    const drone = new droneRoutes();
+    drone.load();
 };

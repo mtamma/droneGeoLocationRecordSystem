@@ -1,6 +1,6 @@
 const droneRoutes = require('../../drone/routes');
 
-module.exports.init = function () {
+module.exports.init = function (method, url) {
     const drone = new droneRoutes();
-    drone.load();
+    drone.load(method, url);
 };

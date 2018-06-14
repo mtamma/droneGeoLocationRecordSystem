@@ -21,9 +21,10 @@ module.exports = function () {
     };
 
     this.load = function (method, url) {
+        console.log('load drone routes');
         const listEndpoint = this.listEndpoint;
         if (_.has(listEndpoint, method)) {
-            const methodEnpoint = listEndpoint.method;
+            const methodEnpoint = listEndpoint[method];
             const matchEndpoint = _.find(methodEnpoint, {
                 'url': url
             });

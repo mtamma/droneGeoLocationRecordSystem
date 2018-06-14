@@ -11,7 +11,7 @@ module.exports.invoke = function (data, mongooseInstance) {
     let latitude = data.latitude;
     let location = {
         'type': 'point',
-        coodinates: [
+        'coodinates': [
             longitude, latitude
         ],
     };
@@ -26,8 +26,9 @@ module.exports.invoke = function (data, mongooseInstance) {
         };
         let updateData = {
             $set: {
-                'location': location,
-                'updated_at': Date.now
+                'location.type': location.type,
+                'location.coordinates': location.coodinates,
+                'updated_at': Date.now()
             }
         };
         let callbackFn = function (err, response) {
@@ -36,7 +37,6 @@ module.exports.invoke = function (data, mongooseInstance) {
                 return;
             }
             console.log('response updateDevice: ', response);
-            data._id = response._id;
             callback();
         }
         DeviceModel.findOneAndUpdate(query, updateData, options, callbackFn);
@@ -44,9 +44,19 @@ module.exports.invoke = function (data, mongooseInstance) {
 
     const addLocation = function (callback) {
         let locationInstance = new LocationModel();
-        locationInstance.user = ObjectID(data.id);
-        locationInstance.location = location;
-        locationInstance.save(callback);
+        locationInstance.owner = ObjectID(data.id);
+        locationInstance.location = {
+            'type': location.type,
+            'coordinates': location.coodinates
+        };
+        locationInstance.save(function (err, response) {
+            if (err) {
+                console.log(err);
+                return;
+            }
+            console.log('response: ', response);
+            callback();
+        });
     };
 
     console.log('trigger put drone');
